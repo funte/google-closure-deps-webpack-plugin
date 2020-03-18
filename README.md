@@ -7,6 +7,45 @@ Webpack plugin for generating Google Closure deps, work with [closure-webpack-pl
 _JS_FILE_REGEX = re.compile(r'^.+\.js$')
 ```
 
+## usage
+Case these files in your project are written with Google Closure:  
+```js
+// <your project>/src/foo.js
+goog.provide('foo');
+goog.require('bar');
+
+// <your project>/src/bar.js
+goog.provide('bar');
+```
+
+Config webpack with:
+```js
+module.exports = {
+  // ...
+  plugins: [
+      new GCCDepsPlugin({
+        output: '.tmp/deps.js',
+        source: {
+          roots: ['src'],
+        },
+        goog: 'node_modules/google-closure-library/closure/goog/base.js',
+        python: 'python'
+      }),
+      new ClosurePlugin.LibraryPlugin({
+        closureLibraryBase: require.resolve(
+          'google-closure-library/closure/goog/base'
+        ),
+        deps: [
+          require.resolve('google-closure-library/closure/goog/deps'),
+          // path for generated depenencies file.
+          '.tmp/deps.js',
+        ],
+      })
+    ]
+}
+```
+
+
 ## example
 - [template-closure-webpack-plugin-2](https://github.com/funte/template-closure-webpack-plugin-2)  
   Use plugins `google-closure-deps-webpack-plugin` and `closure-webpack-plugin` support [Closure Library](https://developers.google.com/closure/library) in webpack.  
