@@ -1,0 +1,28 @@
+{
+  "name": "google-closure-deps-webpack-plugin",
+  "version": "1.0.0",
+  "description": "Webpack plugin for generating Google Closure deps, work with closure-webpack-plugin",
+  "main": "src/index.js",
+  "keywords": [
+    "webpack",
+    "plugin",
+    "goog",
+    "closure",
+    "dependencies",
+    "deps"
+  ],
+  "author": "GuowenGao(funte@outlook.com)",
+  "homepage": "https://github.com/funte/google-closure-deps-webpack-plugin",
+  "repository": "https://github.com/funte/google-closure-deps-webpack-plugin",
+  "bugs": {
+    "urls": "https://github.com/funte/google-closure-deps-webpack-plugin/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "lodash.defaultsdeep": "^4.6.1",
+    "path": "^0.12.7",
+    "schema-utils": "^2.6.5",
+    "shelljs": "^0.8.3"
+  }
+}
