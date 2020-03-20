@@ -1,5 +1,5 @@
 # google-closure-deps-webpack-plugin
-Webpack plugin for generating Google Closure deps, work with [closure-webpack-plugin](https://www.npmjs.com/package/closure-webpack-plugin).  
+Webpack plugin for generating Google Closure deps, work with [google-closure-library-webpack-plugin](https://www.npmjs.com/package/google-closure-library-webpack-plugin).  
 
 <b>Note</b>: donnot use Google Closure in babel js file(end with `jsx`)!! But if you stick it, just replace the regex with `r'^.+\.jsx?$'`, this code is under `<your project>/node_modules/google-closure-library/closure/bin/build/treescan.py`:  
 ```py
@@ -10,20 +10,31 @@ _JS_FILE_REGEX = re.compile(r'^.+\.js$')
 ## usage
 Case these files in your project are written with Google Closure:  
 ```js
-// <your project>/src/foo.js
-goog.provide('foo');
-goog.require('bar');
+// <your project>/src/hello.js
+goog.require('goog.dom');
+goog.require('goog.dom.TagName');
 
-// <your project>/src/bar.js
-goog.provide('bar');
+var ele = goog.dom.createDom(goog.dom.TagName.P, {}, "hello world!!");
+
+export { ele };
+```
+```js
+// <your project>/src/index.js
+import {ele} from './lib/hello.js';
+
+document.body.append(ele);
+
 ```
 
 Config webpack with:
 ```js
+const GCLibraryPlugin = require('google-closure-library-webpack-plugin');
+const GCDepsPlugin = require('google-closure-deps-webpack-plugin');
+
 module.exports = {
   // ...
   plugins: [
-      new GCCDepsPlugin({
+      new GCDepsPlugin({
         output: '.tmp/deps.js',
         source: {
           roots: ['src'],
@@ -31,7 +42,7 @@ module.exports = {
         goog: 'node_modules/google-closure-library/closure/goog/base.js',
         python: 'python'
       }),
-      new ClosurePlugin.LibraryPlugin({
+      new GCLibraryPlugin({
         closureLibraryBase: require.resolve(
           'google-closure-library/closure/goog/base'
         ),
@@ -48,7 +59,7 @@ module.exports = {
 
 ## example
 - [template-closure-webpack-plugin-2](https://github.com/funte/template-closure-webpack-plugin-2)  
-  Use plugins `google-closure-deps-webpack-plugin` and `closure-webpack-plugin` support [Closure Library](https://developers.google.com/closure/library) in webpack.  
+  Use plugins `google-closure-deps-webpack-plugin` and `google-closure-library-webpack-plugin` support [Closure Library](https://developers.google.com/closure/library) in webpack.  
 
 ## options
 - output  

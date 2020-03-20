@@ -31,7 +31,7 @@ const schema = {
 
 const pluginName = 'GoogleClosureDepsPlugin';
 
-class GCCDepsPlugin {
+class GoogleClosureDepsPlugin {
   constructor(options = {}) {
     options = defaultsDeep(options, {
       output: '',
@@ -173,4 +173,4 @@ class GCCDepsPlugin {
   }
 }
 
-module.exports = GCCDepsPlugin;
+module.exports = GoogleClosureDepsPlugin;
