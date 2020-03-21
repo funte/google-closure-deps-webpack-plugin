@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const defaultsDeep = require('lodash.defaultsdeep');
 const shell = require('shelljs');
-const utils = require('./utils.js');
+const pig = require('slim-pig');
 
 // schema for options object
 const schema = {
@@ -51,7 +51,7 @@ class GoogleClosureDepsPlugin {
     this.roots_ = options.source.roots.map(item => path.resolve(item));
     this.roots_.forEach(root => {
       root = path.resolve(root);
-      utils.walkSync(root, file => this.addSource_(file));
+      pig.fs.walkSync(root, file => this.addSource_(file));
     });
     this.jsPaths_ = options.source.jsPaths.map(item => path.resolve(item));
     this.jsPaths_.forEach(file => this.addSource_(file));
