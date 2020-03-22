@@ -84,7 +84,6 @@ class GoogleClosureDepsPlugin {
   }
 
   makeCmd_() {
-    this.cmd_ = 'pwd';
     var tokens = [this.python_];
     tokens.push(path.resolve(__dirname, '../', 'tools/makedeps.py'));
     tokens.push('-o');
@@ -95,11 +94,11 @@ class GoogleClosureDepsPlugin {
     }
     if (this.jsPaths_.length) {
       tokens.push('-j');
-      Object.keys(this.sources_).forEach(source => tokens.push(source));
+      this.jsPaths_.forEach(source => tokens.push(source));
     }
     if (this.excludes_.length) {
       tokens.push('-e');
-      this.excludes_.forEach(item => this.cmd_.push(item));
+      this.excludes_.forEach(item => tokens.push(item));
     }
     tokens.push('-g');
     tokens.push(this.goog_);

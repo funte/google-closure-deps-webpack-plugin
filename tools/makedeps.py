@@ -24,6 +24,8 @@ def importPath(fullpath):
   del sys.path[-1]
   return module
 
+def unixlike(path):
+  return path.replace('\\', '/')
 
 def _GetOptionParse():
   parser = argparse.ArgumentParser(__doc__)
@@ -101,18 +103,18 @@ def _FindSource(roots=[], js_paths=[], excludes=[]):
     for root in roots:
       for js_path in treescan.ScanTreeForJsFiles(root):
         # Avoid backslash.
-        sources.add(_PathSource(js_path.replace('\\', '/')))
+        sources.add(_PathSource(unixlike(js_path)))
   # 扫描文件.
   if js_paths:
     for js_path in js_paths:
       # Avoid backslash.
-      sources.add(_PathSource(js_path.replace('\\', '/')))
+      sources.add(_PathSource(unixlike(js_path)))
   
   # 忽略指定文件.
   def _exclude(source):
-    path, filename = os.path.split(source.GetPath())
-    return not filename in excludes
+    return not unixlike(source.GetPath()) in excludes
   if excludes:
+    excludes = [unixlike(item) for item in excludes]
     sources = [source for source in sources if _exclude(source)]
   
   return sources
@@ -129,7 +131,7 @@ if  __name__ == '__main__':
     source_path = os.path.relpath(source.GetPath(), goog_dir)
     source_map[source_path] = source
   # Build dependency line.
-  add_dependency = depswriter.MakeDepsFile(source_map).replace('\\', '/')
+  add_dependency = unixlike(depswriter.MakeDepsFile(source_map))
   
 
   output_dir, output_name = os.path.split(args.output)
