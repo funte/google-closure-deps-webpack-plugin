@@ -33,6 +33,8 @@ const pluginName = 'GoogleClosureDepsPlugin';
 
 class GoogleClosureDepsPlugin {
   constructor(options = {}) {
+    console.log('This plugin not support anymore, all functionality has combine to google-closure-library-webpack-plugin!!');
+
     options = defaultsDeep(options, {
       output: '',
       source: { roots: [], jsPaths: [], excludes: [] },
