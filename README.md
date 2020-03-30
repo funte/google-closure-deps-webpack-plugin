@@ -1,4 +1,7 @@
 # google-closure-deps-webpack-plugin
+
+<span style="color:#cc3300; font-size: 20pt; font-weight: bold">This plugin not support anymore, all functionality has combine to [google-closure-library-webpack-plugin](https://www.npmjs.com/package/google-closure-library-webpack-plugin)!!</span>
+
 Webpack plugin for generating Google Closure deps, work with [google-closure-library-webpack-plugin](https://www.npmjs.com/package/google-closure-library-webpack-plugin).  
 
 <b>Note</b>: donnot use Google Closure in babel js file(end with `jsx`)!! But if you stick it, just replace the regex with `r'^.+\.jsx?$'`, this code is under `<your project>/node_modules/google-closure-library/closure/bin/build/treescan.py`:  
